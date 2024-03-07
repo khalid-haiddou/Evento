@@ -32,7 +32,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('myevents') }}">
+            <a href="">
                 <i class='bx bxs-shopping-bag-alt' ></i>
                 <span class="text">My Events</span>
             </a>

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,14 +9,17 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'description',
-        'date_event',
-        'place',
-        'price',
-        'nbr_place',
-        'image',
-        'category',
-        'status',
+        'title', 'description', 'date', 'address', 'placeNumber', 'price', 'category_id', 'user_id', 'image', 'acceptType', 'isPublish'
     ];
+
+    // Define relationships if necessary
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

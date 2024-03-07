@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\EventController;
+use App\Http\Controllers\OrganisateurController;
+
 
 
 /*
@@ -29,8 +30,8 @@ Route::get('/dashboard/admin',[CategoryController::class, 'index'] )->name('dash
 Route::post('/update-category', [CategoryController::class, 'updateCategory'])->name('update.category');
 Route::post('/delete-category', [CategoryController::class, 'deleteCategory'])->name('delete.category');
 Route::post('/categories', [CategoryController::class, 'store'])->name('store.category');
-Route::get('/myevents', function () { return view('dashboard.myevents');})->name('myevents');
-Route::post('/dashboard.organisateur', [EventController::class, 'store'])->name('store.organisateur');
 Route::get('/dashboard/organisateur', [CategoryController::class, 'display'])->name('dashboard.organisateur');
-Route::get('/dashboard/organisateur', [EventController::class, 'index'])->name('dashboard.organisateur');
-
+Route::post('/dashboard.organisateur', [OrganisateurController::class, 'storeEvent'])->name('store.event');
+Route::get('/dashboard/organisateur', [OrganisateurController::class, 'displayEvents'])->name('dashboard.organisateur');
+Route::get('/dashboard/organisateur/{id}/edit', [OrganisateurController::class, 'editEvent'])->name('edit.event');
+Route::post('/dashboard/organisateur/update', [OrganisateurController::class, 'updateEvent'])->name('update.event');
