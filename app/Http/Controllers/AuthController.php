@@ -97,4 +97,9 @@ public function resetPassword(Request $request)
     }
 
 }
+public function index()
+    {
+        $users = User::all();
+        return view('dashboard.users', compact('users'));
+    }
 }

@@ -61,35 +61,35 @@ class OrganisateurController extends Controller
         return response()->json($event);
     }
 
-    // Method to update event details
     public function updateEvent(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'date' => 'required|date',
-            'address' => 'required|string|max:255',
-            'placeNumber' => 'required|integer',
-            'price' => 'required|numeric',
-            'category_id' => 'required|exists:categories,id',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'acceptType' => 'required|in:auto,manual',
-        ]);
+{
+    $request->validate([
+        'event_id' => 'required|exists:events,id',
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'date' => 'required|date',
+        'address' => 'required|string|max:255',
+        'placeNumber' => 'required|integer',
+        'price' => 'required|numeric',
+        'category_id' => 'required|exists:categories,id',
+        'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'acceptType' => 'required|in:auto,manual',
+    ]);
 
-        $event = Event::findOrFail($request->event_id);
-        $event->title = $request->title;
-        $event->description = $request->description;
-        $event->date = $request->date;
-        $event->address = $request->address;
-        $event->placeNumber = $request->placeNumber;
-        $event->price = $request->price;
-        $event->category_id = $request->category_id;
-        $event->acceptType = $request->acceptType;
-        if ($request->hasFile('image')) {
-            $event->image = $request->file('image')->store('events', 'public');
-        }
-        $event->save();
-
-        return response()->json(['success' => true, 'message' => 'Event updated successfully.']);
+    $event = Event::findOrFail($request->event_id);
+    $event->title = $request->title;
+    $event->description = $request->description;
+    $event->date = $request->date;
+    $event->address = $request->address;
+    $event->placeNumber = $request->placeNumber;
+    $event->price = $request->price;
+    $event->category_id = $request->category_id;
+    $event->acceptType = $request->acceptType;
+    if ($request->hasFile('image')) {
+        $event->image = $request->file('image')->store('events', 'public');
     }
+    $event->save();
+
+    return redirect()->back()->with('success', 'Event updated successfully.');
+}
 }

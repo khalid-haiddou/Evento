@@ -10,6 +10,24 @@
 </head>
 
 <body>
+    <style>
+        .role-selection {
+    margin-bottom: 20px;
+}
+
+.role-selection label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.role-selection select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+    </style>
     <div class="container" id="container">
         <!-- Sign Up Form -->
         <div class="form-container sign-up">
@@ -26,7 +44,14 @@
                 <input type="text" name="name" placeholder="Name" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">Sign Up</button> 
+                <div class="role-selection">
+                    <label for="role">Select Role:</label>
+                    <select name="role" id="role">
+                        <option value="user">User</option>
+                        <option value="organisateur">Organisateur</option>
+                    </select>
+                </div>
+                <button type="submit" class="signup-btn">Sign Up</button> 
             </form>
         </div>
 

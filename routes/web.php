@@ -33,5 +33,6 @@ Route::post('/categories', [CategoryController::class, 'store'])->name('store.ca
 Route::get('/dashboard/organisateur', [CategoryController::class, 'display'])->name('dashboard.organisateur');
 Route::post('/dashboard.organisateur', [OrganisateurController::class, 'storeEvent'])->name('store.event');
 Route::get('/dashboard/organisateur', [OrganisateurController::class, 'displayEvents'])->name('dashboard.organisateur');
-Route::get('/dashboard/organisateur/{id}/edit', [OrganisateurController::class, 'editEvent'])->name('edit.event');
-Route::post('/dashboard/organisateur/update', [OrganisateurController::class, 'updateEvent'])->name('update.event');
+Route::get('/{id}/edit', [OrganisateurController::class, 'editEvent'])->name('edit.event');
+Route::post('/update', [OrganisateurController::class, 'updateEvent'])->name('update.event');
+Route::get('/dashboard/users', [AuthController::class, 'index'])->name('dashboard.users');

@@ -134,7 +134,7 @@
                                             <div class="card-body pb-0 d-fex">
                                                 <div class="d-flex justify-content-between">
                                                     <p><a style="color: red; font-size: 20px;">{{ $event->price }} €</a></p>
-                                                    <p><a style="color: green; font-size: 15px;">{{ $event->placeNumber }}</a></p>
+                                                    <p><a style="color: green; font-size: 15px;">{{ $event->placeNumber }}Place</a></p>
                                                 </div>
                                                 <div class="d-flex justify-content-between">
                                                     <p><a style="color: rgb(0, 0, 0); font-size: 12px;">{{ $event->description }}</a></p>
@@ -145,8 +145,7 @@
                                                 <a class="btn btn-warning btn-sm">{{ $event->isPublish }}</a>
                                                 <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
                                                     <!-- Action buttons -->
-                                                    <button type="button" class="btn btn-primary btn-sm mt-5" data-toggle="modal" data-target="#editEventModal" data-event-id="{{ $event->id }}">Edit</button>
-                                                    
+                                                    <button type="button" class="btn btn-primary btn-sm mt-5 editEventBtn"  data-id="{{ $event->id }}">Update</button>
                                                     <a href="#" class="btn btn-danger btn-sm mt-5">Delete</a>
                                                 </div>
                                             </div>
@@ -248,146 +247,117 @@
 </div>
 <!-- Add Event Modal -->
 
-<!-- Add Event Modal -->
-<div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventModalLabel" aria-hidden="true">
+<!-- Update Event Modal -->
+<div class="modal fade" id="updateEventModal" tabindex="-1" aria-labelledby="updateEventModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editEventModalLabel">Edit Event</h5>
+                <h5 class="modal-title" id="updateEventModalLabel">Update Event</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="editEventForm" method="POST" enctype="multipart/form-data">
+            <form id="updateEventForm" action="{{ route('update.event') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
+                    <!-- Hidden Field for Event ID -->
+                    <input type="hidden" id="update_event_id" name="event_id">
                     <!-- Title -->
                     <div class="form-group">
-                        <label for="edit_title">Title</label>
-                        <input type="text" class="form-control" id="edit_title" name="title" required>
+                        <label for="update_title">Title</label>
+                        <input type="text" class="form-control" id="update_title" name="title" required>
                     </div>
                     <!-- Description -->
                     <div class="form-group">
-                        <label for="edit_description">Description</label>
-                        <textarea class="form-control" id="edit_description" name="description" required></textarea>
+                        <label for="update_description">Description</label>
+                        <textarea class="form-control" id="update_description" name="description" required></textarea>
                     </div>
                     <!-- Date -->
                     <div class="form-group">
-                        <label for="edit_date">Date</label>
-                        <input type="datetime-local" class="form-control" id="edit_date" name="date" required>
+                        <label for="update_date">Date</label>
+                        <input type="datetime-local" class="form-control" id="update_date" name="date" required>
                     </div>
                     <!-- Place -->
                     <div class="form-group">
-                        <label for="edit_place">Place</label>
-                        <input type="text" class="form-control" id="edit_place" name="address" required>
+                        <label for="update_place">Place</label>
+                        <input type="text" class="form-control" id="update_place" name="address" required>
                     </div>
                     <!-- Price -->
                     <div class="form-group">
-                        <label for="edit_price">Price</label>
-                        <input type="number" class="form-control" id="edit_price" name="price" required>
+                        <label for="update_price">Price</label>
+                        <input type="number" class="form-control" id="update_price" name="price" required>
                     </div>
                     <!-- Number of Places -->
                     <div class="form-group">
-                        <label for="edit_placeNumber">Number of Places</label>
-                        <input type="number" class="form-control" id="edit_placeNumber" name="placeNumber" required>
+                        <label for="update_nbr_place">Number of Places</label>
+                        <input type="number" class="form-control" id="update_nbr_place" name="placeNumber" required>
                     </div>
                     <!-- Image -->
                     <div class="form-group">
-                        <label for="edit_image">Image</label>
-                        <input type="file" class="form-control-file" id="edit_image" name="image">
+                        <label for="update_image">Image</label>
+                        <input type="file" class="form-control-file" id="update_image" name="image">
                     </div>
-                    <!-- Category -->
                     <div class="form-group">
-                        <label for="edit_category">Category</label>
-                        <select class="form-control" id="edit_category" name="category_id" required>
+                        <label for="update_category">Category</label>
+                        <select class="form-control" id="update_category" name="category_id" required>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <!-- Accept Type -->
+                    <!-- Status -->
                     <div class="form-group">
-                        <label for="edit_acceptType">Accept Type</label>
-                        <select class="form-control" id="edit_acceptType" name="acceptType" required>
+                        <label for="update_acceptType">Accept Type</label>
+                        <select class="form-control" id="update_acceptType" name="acceptType" required>
                             <option value="auto">Auto</option>
                             <option value="manual">Manual</option>
                         </select>
                     </div>
-                    <!-- User ID (Automatically Set) -->
-                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                    <!-- Event ID (Automatically Set) -->
-                    <input type="hidden" id="edit_event_id" name="event_id">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary">Update Event</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
+<!-- update Event Modal -->
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="{{ asset('js/style1.js') }}"></script>
 <script>
-    // Add an event listener to the "New Event" button
-    document.getElementById('openEventModalBtn').addEventListener('click', function() {
-        // Show the modal
-        $('#addEventModal').modal('show');
-    });
+$(document).ready(function() {
+        // Add an event listener to the "New Event" button
+        $('#openEventModalBtn').click(function() {
+            $('#addEventModal').modal('show');
+        });
+    }); 
 </script>
+
 <script>
-    // Function to populate the edit modal with event data
-    function populateEditModal(event) {
-        $('#edit_title').val(event.title);
-        $('#edit_description').val(event.description);
-        $('#edit_date').val(event.date);
-        $('#edit_place').val(event.address);
-        $('#edit_price').val(event.price);
-        $('#edit_placeNumber').val(event.placeNumber);
-        $('#edit_image').val(''); // Clear previous image selection
-        $('#edit_category').val(event.category_id);
-        $('#edit_acceptType').val(event.acceptType);
-        $('#edit_event_id').val(event.id);
-    }
-
-    // Add event listener to the "Edit" button
-    $(document).on('click', '.btn-edit', function() {
-        var eventId = $(this).data('event-id');
-        var url = '/edit-event/' + eventId; // Adjust the URL according to your route
-        // Fetch event data via AJAX
-        $.get(url, function(event) {
-            populateEditModal(event);
-            $('#editEventModal').modal('show');
-        });
-    });
-
-    // Handle form submission for editing event
-    $('#editEventForm').submit(function(event) {
-        event.preventDefault();
-        var formData = new FormData($(this)[0]);
-        var url = $(this).attr('action');
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                // Handle success response
-                console.log(response);
-                $('#editEventModal').modal('hide');
-                // Reload or update events list
-            },
-            error: function(xhr, status, error) {
-                // Handle error response
-                console.error(xhr.responseText);
-            }
+    $('.editEventBtn').click(function() {
+        var event_id = $(this).data('id');
+        $.get('/dashboard/organisateur/' + event_id + '/edit', function(data) {
+            $('#updateEventModal').modal('show');
+            $('#update_event_id').val(data.id);
+            $('#update_title').val(data.title);
+            $('#update_description').val(data.description);
+            $('#update_date').val(data.date);
+            $('#update_place').val(data.address);
+            $('#update_price').val(data.price);
+            $('#update_nbr_place').val(data.place_number);
+            $('#update_category').val(data.category_id);
+            $('#update_acceptType').val(data.accept_type);
         });
     });
 </script>
+
+
 
 </body>
 </html>

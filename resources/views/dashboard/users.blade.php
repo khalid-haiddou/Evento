@@ -26,7 +26,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('dashboard.users') }}">
+            <a href="#">
                 <i class='bx bxs-group' ></i>
                 <span class="text">Users</span>
             </a>
@@ -107,7 +107,7 @@
                 <i class='bx bxs-calendar-check' ></i>
                 <span class="text">
                     <h3>12</h3>
-                    <p>CATEGORIES</p>
+                    <p>Categories</p>
                 </span>
             </li>
             <li>
@@ -137,26 +137,31 @@
         <div class="table-data">
             <div class="todo">
                 <div class="head">
-                    <h3>CATEGORIES</h3>
-					<a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#addCategoryModal">New Category</a>
+                    <h3>Roles Gestion</h3>
+					<a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#addCategoryModal">New User</a>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th style="padding-left: 130px">Name</th>
-                            <th style="padding-left: 150px">Actions</th>
+                            <th style="padding-left: 110px">Name</th>
+                            <th style="padding-left: 110px">email</th>
+                            <th style="padding-left: 110px">Role</th>
+                            <th style="padding-left: 110px">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($categories as $category)
+                       @foreach($users as $user)
                         <tr>
-                            <td>{{ $category->id }}</td>
-                            <td style="padding-left: 130px">{{ $category->name }}</td>
-                            <td style="padding-left: 130px">
+                            <td>{{ $user->id }}</td>
+                            <td style="padding-left: 110px">{{ $user->name }}</td>
+                            <td style="padding-left: 110px">{{ $user->email }}</td>
+                            <td style="padding-left: 110px">{{ $user->role }}</td>
+                            <td style="padding-left: 110px">
                                 <!-- Action buttons -->
-                                <a href="#" class="btn btn-primary btn-sm edit-category" data-toggle="modal" data-target="#editCategoryModal" data-category-id="{{ $category->id }}" data-category-name="{{ $category->name }}">Edit</a>
-                                <a href="#" class="btn btn-danger btn-sm delete-category" data-category-id="{{ $category->id }}">Delete</a>
+                                    <button class="btn btn-primary btn-sm edit-user" data-toggle="modal" data-target="#editUserModal" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-role="{{ $user->role }}">Edit</button>
+                                    <a class="btn btn-danger btn-sm delete-user" data-user-id="{{ $user->id }}">Delete</a>
+                    
                             </td>
                         </tr>
                         @endforeach
@@ -169,117 +174,46 @@
 </section>
 <!-- CONTENT -->
 
-<!-- Add Category Modal -->
-<div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+<!--update user modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+                <h5 class="modal-title" id="editUserModalLabel">Edit User Role</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form id="addCategoryForm" method="POST" action="{{ route('store.category') }}">
-                    @csrf
+            <form id="editUserForm" action="{{ route('update.user') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <input type="hidden" name="user_id" id="editUserId">
                     <div class="form-group">
-                        <label for="addCategoryName">Category Name</label>
-                        <input type="text" class="form-control" id="addCategoryName" name="name">
+                        <label for="userRole">Role:</label>
+                        <select class="form-control" id="userRole" name="role">
+                            <option value="admin">Admin</option>
+                            <option value="organisateur">Organisateur</option>
+                            <option value="user">User</option>
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Category</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Edit Category Modal -->
-<div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="editCategoryForm" method="POST" action="{{ route('update.category') }}">
-                    @csrf
-                    <div class="form-group">
-                        <label for="editCategoryName">Category Name</label>
-                        <input type="text" class="form-control" id="editCategoryName" name="name">
-                        <input type="hidden" id="editCategoryId" name="id">
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+<!--update user modal end -->
 
-<!-- Delete Category Modal -->
-<div class="modal fade" id="deleteCategoryModal" tabindex="-1" role="dialog" aria-labelledby="deleteCategoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteCategoryModalLabel">Delete Category</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this category?</p>
-            </div>
-            <div class="modal-footer">
-                <form id="deleteCategoryForm" method="POST" action="{{ route('delete.category') }}">
-                    @csrf
-                    <input type="hidden" id="deleteCategoryId" name="id">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" id="confirmDeleteCategory" class="btn btn-danger">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="{{ asset('js/style1.js') }}"></script>
 
-<script>
-    $(document).ready(function() {
-        $('.edit-category').click(function() {
-            var categoryId = $(this).data('category-id');
-            var categoryName = $(this).data('category-name');
-            $('#editCategoryId').val(categoryId);
-            $('#editCategoryName').val(categoryName);
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('.add-category').click(function() {
-            $('#addCategoryModal').modal('show');
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('.delete-category').click(function() {
-            var categoryId = $(this).data('category-id');
-            $('#deleteCategoryId').val(categoryId); 
-            $('#deleteCategoryModal').modal('show');
-        });
-
-        $('#confirmDeleteCategory').click(function() {
-            $('#deleteCategoryForm').submit();
-        });
-    });
-</script>
 
 </body>
 </html>
