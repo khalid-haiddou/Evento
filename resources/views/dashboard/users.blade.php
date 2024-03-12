@@ -184,7 +184,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="editUserForm" action="{{ route('update.user') }}" method="POST">
+            <form id="editUserForm" action="{{ route('dashboard.users.update') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <input type="hidden" name="user_id" id="editUserId">

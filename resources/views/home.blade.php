@@ -74,7 +74,6 @@
                         <h2 style="font-family: 'Madimi One', sans-serif; font-size: 200px; color: #333; text-transform: uppercase; letter-spacing: 2px;">Hello world!</h2>
 
                         <div class="entry-meta-date">
-                            11.09.2024
                         </div><!-- .entry-meta-date -->
                     </div><!-- .entry-header -->
 
@@ -186,14 +185,13 @@
             <section style="background-color: #eee;">
                 <div class="container py-5">
                   <div class="row justify-content-center">
-                    <!-- Event 1  Test -->
+
+                    @foreach($events as $event)
                     <div class="col-md-8 col-lg-6 col-xl-4 p-2">
                         <div class="card" style="border-radius: 15px;">
                           <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
                             data-mdb-ripple-color="light">
-                            <img src="{{ asset('images/myimages/news-image-1.jpg') }}" alt="fesival+celebration"
-                              style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
-                              alt="category" />
+                            <img src="{{ asset($event->image) }}" alt="{{ $event->title }}" style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid" alt="category" />
                             <a href="#!">
                               <div class="mask"></div>
                             </a>
@@ -201,294 +199,38 @@
                           <div class="card-body pb-0">
                             <div class="d-flex justify-content-between">
                               <div>
-                                <p><a href="#!" class="text-dark">Harmony Fest Melodia Harmony Festival</a></p>
-                                <p class="small text-muted">PARIS</p>
+                                <p><a class="text-dark">{{ $event->title }}</a></p>
+                                <p class="small text-dark">{{ $event->address }}</p>
                               </div>
                               <div>
-                                  <p class="small text-muted">Music Festival</p>
-                                <p class="small text-muted">20-22, 2024</p>
+                                  <p class="small text-muted">{{ $event->category->name }}</p>
+                                  <p class="small text-muted">{{ $event->date }}</p>
                               </div>
                             </div>
                           </div>
                           <hr class="my-0" />
                           <div class="card-body pb-0 d-fex">
                               <div class="d-flex justify-content-between">
-                                  <p><a style="color: red; font-size: 20px;">$75.00</a></p>
-                                  <p><a style="color: green; font-size: 15px;">10,000</a></p>
+                                  <p><a style="color: red; font-size: 20px;">{{ $event->price }} Dhs</a></p>
+                                  <p><a style="color: green; font-size: 15px;">{{ $event->placeNumber }} Place</a></p>
                               </div>
                               <div class="d-flex justify-content-between">
-                                  <p><a style="color: rgb(0, 0, 0); font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum justo sit amet tellus malesuada, at suscipit arcu placerat. Proin aliquam velit et augue convallis eleifend. Nulla facilisi. </a></p>
+                                  <p><a style="color: rgb(0, 0, 0); font-size: 12px;">{{ $event->description }}</a></p>
                               </div>
                           </div>
                           <hr class="my-0" />
                           <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
                                   <!-- Action buttons -->
-                                  <a href="#" class="btn btn-success btn-sm">Discover Now !</a>
+                                  <a href="{{ route('event.details', ['eventId' => $event->id]) }}" class="btn btn-success btn-sm">Discover Now !</a>
+
                             </div>
                           </div>
                         </div>
                       </div> 
                       <!-- CardT end -->
-
-
-
-
-
-                        <!-- Card1 end -->
-                        <!-- CardT TEST DESIGN CARD  -->
-                    <div class="col-md-8 col-lg-6 col-xl-4 p-2">
-                        <div class="card" style="border-radius: 15px;">
-                          <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-                            data-mdb-ripple-color="light">
-                            <img src="{{ asset('images/myimages/news-image-1.jpg') }}" alt="fesival+celebration"
-                              style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
-                              alt="category" />
-                            <a href="#!">
-                              <div class="mask"></div>
-                            </a>
-                          </div>
-                          <div class="card-body pb-0">
-                            <div class="d-flex justify-content-between">
-                              <div>
-                                <p><a href="#!" class="text-dark">Harmony Fest Melodia Harmony Festival</a></p>
-                                <p class="small text-muted">PARIS</p>
-                              </div>
-                              <div>
-                                  <p class="small text-muted">Music Festival</p>
-                                <p class="small text-muted">20-22, 2024</p>
-                              </div>
-                            </div>
-                          </div>
-                          <hr class="my-0" />
-                          <div class="card-body pb-0 d-fex">
-                              <div class="d-flex justify-content-between">
-                                  <p><a style="color: red; font-size: 20px;">$75.00</a></p>
-                                  <p><a style="color: green; font-size: 15px;">10,000</a></p>
-                              </div>
-                              <div class="d-flex justify-content-between">
-                                  <p><a style="color: rgb(0, 0, 0); font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum justo sit amet tellus malesuada, at suscipit arcu placerat. Proin aliquam velit et augue convallis eleifend. Nulla facilisi. </a></p>
-                              </div>
-                          </div>
-                          <hr class="my-0" />
-                          <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
-                                  <!-- Action buttons -->
-                                  <a href="#" class="btn btn-success btn-sm">Discover Now !</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div> 
-                      <!-- CardT end -->
-
-
-
-
-
-                        <!-- Card1 end -->
-
-                        <!-- CardT TEST DESIGN CARD  -->
-                    <div class="col-md-8 col-lg-6 col-xl-4 p-2">
-                        <div class="card" style="border-radius: 15px;">
-                          <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-                            data-mdb-ripple-color="light">
-                            <img src="{{ asset('images/myimages/news-image-1.jpg') }}" alt="fesival+celebration"
-                              style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
-                              alt="category" />
-                            <a href="#!">
-                              <div class="mask"></div>
-                            </a>
-                          </div>
-                          <div class="card-body pb-0">
-                            <div class="d-flex justify-content-between">
-                              <div>
-                                <p><a href="#!" class="text-dark">Harmony Fest Melodia Harmony Festival</a></p>
-                                <p class="small text-muted">PARIS</p>
-                              </div>
-                              <div>
-                                  <p class="small text-muted">Music Festival</p>
-                                <p class="small text-muted">20-22, 2024</p>
-                              </div>
-                            </div>
-                          </div>
-                          <hr class="my-0" />
-                          <div class="card-body pb-0 d-fex">
-                              <div class="d-flex justify-content-between">
-                                  <p><a style="color: red; font-size: 20px;">$75.00</a></p>
-                                  <p><a style="color: green; font-size: 15px;">10,000</a></p>
-                              </div>
-                              <div class="d-flex justify-content-between">
-                                  <p><a style="color: rgb(0, 0, 0); font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum justo sit amet tellus malesuada, at suscipit arcu placerat. Proin aliquam velit et augue convallis eleifend. Nulla facilisi. </a></p>
-                              </div>
-                          </div>
-                          <hr class="my-0" />
-                          <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
-                                  <!-- Action buttons -->
-                                  <a href="#" class="btn btn-success btn-sm">Discover Now !</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div> 
-                      <!-- CardT end -->
-
-
-
-
-
-                        <!-- Card1 end -->
-                        <!-- CardT TEST DESIGN CARD  -->
-                    <div class="col-md-8 col-lg-6 col-xl-4 p-2">
-                        <div class="card" style="border-radius: 15px;">
-                          <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-                            data-mdb-ripple-color="light">
-                            <img src="{{ asset('images/myimages/news-image-1.jpg') }}" alt="fesival+celebration"
-                              style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
-                              alt="category" />
-                            <a href="#!">
-                              <div class="mask"></div>
-                            </a>
-                          </div>
-                          <div class="card-body pb-0">
-                            <div class="d-flex justify-content-between">
-                              <div>
-                                <p><a href="#!" class="text-dark">Harmony Fest Melodia Harmony Festival</a></p>
-                                <p class="small text-muted">PARIS</p>
-                              </div>
-                              <div>
-                                  <p class="small text-muted">Music Festival</p>
-                                <p class="small text-muted">20-22, 2024</p>
-                              </div>
-                            </div>
-                          </div>
-                          <hr class="my-0" />
-                          <div class="card-body pb-0 d-fex">
-                              <div class="d-flex justify-content-between">
-                                  <p><a style="color: red; font-size: 20px;">$75.00</a></p>
-                                  <p><a style="color: green; font-size: 15px;">10,000</a></p>
-                              </div>
-                              <div class="d-flex justify-content-between">
-                                  <p><a style="color: rgb(0, 0, 0); font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum justo sit amet tellus malesuada, at suscipit arcu placerat. Proin aliquam velit et augue convallis eleifend. Nulla facilisi. </a></p>
-                              </div>
-                          </div>
-                          <hr class="my-0" />
-                          <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
-                                  <!-- Action buttons -->
-                                  <a href="#" class="btn btn-success btn-sm">Discover Now !</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div> 
-                      <!-- CardT end -->
-
-
-
-
-
-                        <!-- Card1 end -->
-                        <!-- CardT TEST DESIGN CARD  -->
-                    <div class="col-md-8 col-lg-6 col-xl-4 p-2">
-                        <div class="card" style="border-radius: 15px;">
-                          <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-                            data-mdb-ripple-color="light">
-                            <img src="{{ asset('images/myimages/news-image-1.jpg') }}" alt="fesival+celebration"
-                              style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
-                              alt="category" />
-                            <a href="#!">
-                              <div class="mask"></div>
-                            </a>
-                          </div>
-                          <div class="card-body pb-0">
-                            <div class="d-flex justify-content-between">
-                              <div>
-                                <p><a href="#!" class="text-dark">Harmony Fest Melodia Harmony Festival</a></p>
-                                <p class="small text-muted">PARIS</p>
-                              </div>
-                              <div>
-                                  <p class="small text-muted">Music Festival</p>
-                                <p class="small text-muted">20-22, 2024</p>
-                              </div>
-                            </div>
-                          </div>
-                          <hr class="my-0" />
-                          <div class="card-body pb-0 d-fex">
-                              <div class="d-flex justify-content-between">
-                                  <p><a style="color: red; font-size: 20px;">$75.00</a></p>
-                                  <p><a style="color: green; font-size: 15px;">10,000</a></p>
-                              </div>
-                              <div class="d-flex justify-content-between">
-                                  <p><a style="color: rgb(0, 0, 0); font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum justo sit amet tellus malesuada, at suscipit arcu placerat. Proin aliquam velit et augue convallis eleifend. Nulla facilisi. </a></p>
-                              </div>
-                          </div>
-                          <hr class="my-0" />
-                          <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
-                                  <!-- Action buttons -->
-                                  <a href="#" class="btn btn-success btn-sm">Discover Now !</a>
-                                  
-                            </div>
-                          </div>
-                        </div>
-                      </div> 
-                      <!-- CardT end -->
-
-
-
-
-
-                        <!-- Card1 end -->
-                        <!-- CardT TEST DESIGN CARD  -->
-                    <div class="col-md-8 col-lg-6 col-xl-4 p-2">
-                        <div class="card" style="border-radius: 15px;">
-                          <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-                            data-mdb-ripple-color="light">
-                            <img src="{{ asset('images/myimages/news-image-1.jpg') }}" alt="fesival+celebration"
-                              style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid"
-                              alt="category" />
-                            <a href="#!">
-                              <div class="mask"></div>
-                            </a>
-                          </div>
-                          <div class="card-body pb-0">
-                            <div class="d-flex justify-content-between">
-                              <div>
-                                <p><a href="#!" class="text-dark">Harmony Fest Melodia Harmony Festival</a></p>
-                                <p class="small text-muted">PARIS</p>
-                              </div>
-                              <div>
-                                  <p class="small text-muted">Music Festival</p>
-                                <p class="small text-muted">20-22, 2024</p>
-                              </div>
-                            </div>
-                          </div>
-                          <hr class="my-0" />
-                          <div class="card-body pb-0 d-fex">
-                              <div class="d-flex justify-content-between">
-                                  <p><a style="color: red; font-size: 20px;">$75.00</a></p>
-                                  <p><a style="color: green; font-size: 15px;">10,000</a></p>
-                              </div>
-                              <div class="d-flex justify-content-between">
-                                  <p><a style="color: rgb(0, 0, 0); font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum justo sit amet tellus malesuada, at suscipit arcu placerat. Proin aliquam velit et augue convallis eleifend. Nulla facilisi. </a></p>
-                              </div>
-                          </div>
-                          <hr class="my-0" />
-                          <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
-                                  <!-- Action buttons -->
-                                  <a href="#" class="btn btn-success btn-sm">Discover Now !</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div> 
-                      <!-- CardT end -->
-
-
-
-
-
-                        <!-- Card1 end -->
-                    <!-- Event 1  Test End -->
+                      @endforeach
+                        
                   </div>
                 </div>
               </section>

@@ -102,4 +102,19 @@ public function index()
         $users = User::all();
         return view('dashboard.users', compact('users'));
     }
+
+   public function updateUserRole(Request $request)
+{
+    $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'role' => 'required|in:admin,organisateur,user',
+    ]);
+
+    $user = User::findOrFail($request->user_id);
+    $user->role = $request->role;
+    $user->save();
+
+    return redirect()->back()->with('success', 'User role updated successfully.');
+}
+
 }
