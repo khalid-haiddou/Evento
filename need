@@ -260,3 +260,21 @@
     <!-- End Card -->
     @endforeach
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form action="{{ route('event.reserve', ['eventId' => $event->id]) }}" method="POST">
+    @csrf
+    <button type="submit" class="buy-now-btn"><i class="fas fa-wallet"></i> Buy now</button>
+</form>

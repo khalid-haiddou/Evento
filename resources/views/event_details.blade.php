@@ -98,7 +98,10 @@
                         <span class="product-date" style="color :black">{{ $event->date }}</span>
                     </div>
                     <div class = "btn-groups">
-                        <button type = "button" class = "buy-now-btn"><i class = "fas fa-wallet"></i>buy now</button>
+                        <form action="{{ route('event.reserve', ['eventId' => $event->id]) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="buy-now-btn"><i class="fas fa-wallet"></i> Buy now</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrganisateurController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EventController;
 
 
 
@@ -39,4 +40,6 @@ Route::post('/update', [OrganisateurController::class, 'updateEvent'])->name('up
 Route::get('/dashboard/users', [AuthController::class, 'index'])->name('dashboard.users');
 Route::post('/dashboard/users/update', [AuthController::class, 'updateUserRole'])->name('dashboard.users.update');
 Route::get('/event/{eventId}', 'App\Http\Controllers\EventController@showDetails')->name('event.details');
+Route::post('/event/{eventId}/reserve', 'App\Http\Controllers\EventController@reserve')->name('event.reserve');
+
 
