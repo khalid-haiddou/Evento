@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -23,6 +24,18 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/style2.css') }}">
 </head>
+<style>
+    .pagination {
+        font-size: 22px;
+        /* Adjust the font size as needed */
+    }
+
+    .pagination>li>a,
+    .pagination>li>span {
+        padding: 1rem 1rem;
+        /* Adjust the padding as needed */
+    }
+</style>
 
 <body>
     <header class="site-header">
@@ -50,10 +63,12 @@
                                 <li><a href="#">BLOG</a></li>
                                 <li><a href="#">CONTACT</a></li>
                                 <li><a href="#"></a></li>
-                                <form action="">
+
+                                <form action="{{ route('search') }}" method="POST">
+                                    @csrf
                                     <div class="input-group">
-                                      <input type="text" class="form-control" placeholder="Search">
-                                      <button type="submit" class="btn btn-primary">Search</button>
+                                        <input type="text" name="search" class="form-control" placeholder="Search">
+                                        <button type="submit" class="btn btn-primary">Search</button>
                                     </div>
                                 </form>
                                 <li><a href="#"></a></li>
@@ -66,50 +81,23 @@
         </div><!-- header-bar -->
     </header><!-- .site-header -->
 
-    <div class="hero-content" style="background: url('{{ asset('images/myimages/cover.jpg') }}') no-repeat;     background-size: cover; padding: 220px 0;">
+    <div class="hero-content"
+        style="background: url('{{ asset('images/myimages/cover.jpg') }}') no-repeat;     background-size: cover; padding: 220px 0;">
         <div class="container">
             <div class="row">
                 <div class="col-12 offset-lg-2 col-lg-10">
                     <div class="entry-header">
-                        <h2 style="font-family: 'Madimi One', sans-serif; font-size: 200px; color: #333; text-transform: uppercase; letter-spacing: 2px;">Hello world!</h2>
+                        <h2
+                            style="font-family: 'Madimi One', sans-serif; font-size: 200px; color: #333; text-transform: uppercase; letter-spacing: 2px;">
+                            Hello world!</h2>
 
                         <div class="entry-meta-date">
                         </div><!-- .entry-meta-date -->
                     </div><!-- .entry-header -->
-
-                    <div class="countdown flex flex-wrap justify-content-between" data-date="2024/06/06">
-                        <div class="countdown-holder">
-                            <div class="dday"></div>
-                            <label>Days</label>
-                        </div><!-- .countdown-holder -->
-
-                        <div class="countdown-holder">
-                            <div class="dhour"></div>
-                            <label>Hours</label>
-                        </div><!-- .countdown-holder -->
-
-                        <div class="countdown-holder">
-                            <div class="dmin"></div>
-                            <label>Minutes</label>
-                        </div><!-- .countdown-holder -->
-
-                        <div class="countdown-holder">
-                            <div class="dsec"></div>
-                            <label>Seconds</label>
-                        </div><!-- .countdown-holder -->
-                    </div><!-- .countdown -->
-                </div><!-- .col-12 -->
-            </div><!-- row -->
-
-            <div class="row">
-                <div class="col-12 ">
-                    <div class="entry-footer">
-                        <a href="#" class="btn">Buy Tickets</a>
-                        <a href="#" class="btn current">See Lineup</a>
-                    </div>
-                </div>
-            </div>
-        </div><!-- .container -->
+                </div><!-- .countdown -->
+            </div><!-- .col-12 -->
+        </div><!-- row -->
+    </div><!-- .container -->
     </div><!-- .hero-content -->
 
     <div class="content-section">
@@ -131,8 +119,8 @@
 
                             <div class="col-6 col-md-4 col-lg-3 artist-single">
                                 <figure class="featured-image">
-                                    <a href="#"> <img src="{{ asset('images/myimages/image-5.jpg') }}" alt=""> </a>
-                                    <a href="#" class="box-link"> <img src="{{ asset('images/myimages/box.jpg') }}" alt=""> </a>
+                                    <a href="#"> <img src="{{ asset('images/myimages/image-5.jpg') }}"
+                                            alt=""> </a>
                                 </figure><!-- featured-image -->
 
                                 <h2> Shows</h2>
@@ -140,8 +128,9 @@
 
                             <div class="col-6 col-md-4 col-lg-3 artist-single">
                                 <figure class="featured-image">
-                                    <a href="#"> <img src="{{ asset('images/myimages/image-6.jpg') }}"  alt=""> </a>
-                                    <a href="#" class="box-link"> <img src="{{ asset('images/myimages/box.jpg') }}" alt=""> </a>
+                                    <a href="#"> <img src="{{ asset('images/myimages/image-6.jpg') }}"
+                                            alt=""> </a>
+
                                 </figure><!-- featured-image -->
 
                                 <h2>Songs</h2>
@@ -149,8 +138,8 @@
 
                             <div class="col-6 col-md-4 col-lg-3 artist-single">
                                 <figure class="featured-image">
-                                    <a href="#"> <img src="{{ asset('images/myimages/image-7.jpg') }}" alt=""> </a>
-                                    <a href="#" class="box-link"> <img src="{{ asset('images/myimages/box.jpg') }}" alt=""> </a>
+                                    <a href="#"> <img src="{{ asset('images/myimages/image-7.jpg') }}"
+                                            alt=""> </a>
                                 </figure><!-- featured-image -->
 
                                 <h2>Galas</h2>
@@ -158,8 +147,8 @@
 
                             <div class="col-6 col-md-4 col-lg-3 artist-single">
                                 <figure class="featured-image">
-                                    <a href="#"> <img src="{{ asset('images/myimages/image-8.jpg') }}"  alt=""> </a>
-                                    <a href="#" class="box-link"> <img src="{{ asset('images/myimages/box.jpg') }}" alt=""> </a>
+                                    <a href="#"> <img src="{{ asset('images/myimages/image-8.jpg') }}"
+                                            alt=""> </a>
                                 </figure><!-- featured-image -->
 
                                 <h2>Sports</h2>
@@ -181,60 +170,81 @@
                     </div><!-- col-12 -->
                 </div><!-- row -->
             </div><!-- container -->
-
             <section style="background-color: #eee;">
                 <div class="container py-5">
-                  <div class="row justify-content-center">
+                    <form action="{{ route('categoryFilter')  }}" method="post">
+                        @csrf
 
-                    @foreach($events as $event)
-                    <div class="col-md-8 col-lg-6 col-xl-4 p-2">
-                        <div class="card" style="border-radius: 15px;">
-                          <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
-                            data-mdb-ripple-color="light">
-                            <img src="{{ asset($event->image) }}" alt="{{ $event->title }}" style="border-top-left-radius: 15px; border-top-right-radius: 15px;" class="img-fluid" alt="category" />
-                            <a href="#!">
-                              <div class="mask"></div>
-                            </a>
-                          </div>
-                          <div class="card-body pb-0">
-                            <div class="d-flex justify-content-between">
-                              <div>
-                                <p><a class="text-dark">{{ $event->title }}</a></p>
-                                <p class="small text-dark">{{ $event->address }}</p>
-                              </div>
-                              <div>
-                                  <p class="small text-muted">{{ $event->category->name }}</p>
-                                  <p class="small text-muted">{{ $event->date }}</p>
-                              </div>
-                            </div>
-                          </div>
-                          <hr class="my-0" />
-                          <div class="card-body pb-0 d-fex">
-                              <div class="d-flex justify-content-between">
-                                  <p><a style="color: red; font-size: 20px;">{{ $event->price }} Dhs</a></p>
-                                  <p><a style="color: green; font-size: 15px;">{{ $event->placeNumber }} Place</a></p>
-                              </div>
-                              <div class="d-flex justify-content-between">
-                                  <p><a style="color: rgb(0, 0, 0); font-size: 12px;">{{ $event->description }}</a></p>
-                              </div>
-                          </div>
-                          <hr class="my-0" />
-                          <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
-                                  <!-- Action buttons -->
-                                  <a href="{{ route('event.details', ['eventId' => $event->id]) }}" class="btn btn-success btn-sm">Discover Now !</a>
+                        <select name="categoryFilter">
+                            <option value="">Select an option</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+    
+                        </select>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <div class="row justify-content-center">
 
+                        @foreach ($events as $event)
+                            <div class="col-md-8 col-lg-6 col-xl-4 p-2">
+                                <div class="card" style="border-radius: 15px;">
+                                    <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light"
+                                        data-mdb-ripple-color="light">
+                                        <img src="{{ asset($event->image) }}" alt="{{ $event->title }}"
+                                            style="border-top-left-radius: 15px; border-top-right-radius: 15px;"
+                                            class="img-fluid" alt="category" />
+                                        <a href="#!">
+                                            <div class="mask"></div>
+                                        </a>
+                                    </div>
+                                    <div class="card-body pb-0">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <p><a class="text-dark">{{ $event->title }}</a></p>
+                                                <p class="small text-dark">{{ $event->address }}</p>
+                                            </div>
+                                            <div>
+                                                <p class="small text-muted">{{ $event->category->name }}</p>
+                                                <p class="small text-muted">{{ $event->date }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="my-0" />
+                                    <div class="card-body pb-0 d-fex">
+                                        <div class="d-flex justify-content-between">
+                                            <p><a style="color: red; font-size: 20px;">{{ $event->price }} Dhs</a></p>
+                                            <p><a style="color: green; font-size: 15px;">{{ $event->placeNumber }}
+                                                    Place</a></p>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <p><a
+                                                    style="color: rgb(0, 0, 0); font-size: 12px;">{{ $event->description }}</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr class="my-0" />
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
+                                            <!-- Action buttons -->
+                                            <a href="{{ route('event.details', ['eventId' => $event->id]) }}"
+                                                class="btn btn-success btn-sm">Discover Now !</a>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                        </div>
-                      </div> 
-                      <!-- CardT end -->
-                      @endforeach
-                        
-                  </div>
+                            <!-- CardT end -->
+                        @endforeach
+                    </div>
+                    <div style="display: flex; justify-content: center;">
+                        {{ $events->links('pagination::bootstrap-4') }}
+                    </div>
+
+
                 </div>
-              </section>
-              
+            </section>
+
         </div><!-- homepage-next-events -->
 
         <div class="home-page-last-news">
@@ -250,7 +260,8 @@
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <figure class="featured-image">
-                                <a href="#"> <img src="{{ asset('images/myimages/news-image-1.jpg') }}" alt="fesival+celebration"> </a>
+                                <a href="#"> <img src="{{ asset('images/myimages/news-image-1.jpg') }}"
+                                        alt="fesival+celebration"> </a>
                             </figure><!-- featured-image -->
 
                             <div class="box-link-date">
@@ -281,7 +292,8 @@
 
                         <div class="col-12 col-md-6">
                             <figure class="featured-image">
-                                <a href="#"> <img src="{{ asset('images/myimages/news-image-1.jpg') }}" alt="fesival+celebration"> </a>
+                                <a href="#"> <img src="{{ asset('images/myimages/news-image-1.jpg') }}"
+                                        alt="fesival+celebration"> </a>
                             </figure><!-- featured-image -->
 
                             <div class="box-link-date">
@@ -334,7 +346,10 @@
 
                         <div class="copyright-info">
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Evanto 
+                            Copyright &copy;
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script> All rights reserved | Evanto
                         </div><!-- copyright-info -->
                     </div><!-- col -->
                 </div><!-- row -->
@@ -350,5 +365,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script type='text/javascript' src="{{ asset('js/myjs/circle-progress.min.js') }}"></script>
     <script type='text/javascript' src="{{ asset('js/myjs/jquery.countTo.min.js') }}"></script>
     <script type='text/javascript' src="{{ asset('js/myjs/custom.js') }}"></script>
+
 </body>
+
 </html>

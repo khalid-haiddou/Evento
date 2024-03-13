@@ -3,13 +3,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Event;
+use App\Models\User;
 
 class CategoryController extends Controller
 {
     public function index()
 {
     $categories = Category::all();
-    return view('dashboard.admin', compact('categories' ));
+    $users = User::all();
+    $events = Event::all();
+    return view('dashboard.admin', compact('categories','users' ,'events'));
     
 }
 public function display()
@@ -32,17 +36,14 @@ public function deleteCategory(Request $request) {
 }
 public function store(Request $request)
 {
-    // Validate the request data
     $request->validate([
         'name' => 'required|string|max:255|unique:categories',
     ]);
 
-    // Create the category
     $category = new Category();
     $category->name = $request->name;
     $category->save();
 
-    // Redirect back with a success message
     return redirect()->back()->with('success', 'Category created successfully.');
 }
 }

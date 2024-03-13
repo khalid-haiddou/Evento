@@ -16,29 +16,21 @@
 <section id="sidebar">
     <a class="brand">
         <i class='bx bxs-smile'></i>
-        <span class="text">Evento </span>
+        <span class="text"> EVANTO</span>
     </a>
     <ul class="side-menu top">
         <li class="active">
-			<a href="{{ route('dashboard.admin') }}">
+            <a href="{{ route('dashboard.organisateur') }}">
                 <i class='bx bxs-dashboard' ></i>
-                <span class="text"> Dashboard</span>
+                <span class="text">Dashboard</span>
             </a>
         </li>
         <li>
             <a href="#">
-                <i class='bx bxs-group' ></i>
-                <span class="text">Users</span>
-            </a>
-        </li>
-        <li>
-            <a href="">
                 <i class='bx bxs-shopping-bag-alt' ></i>
-                <span class="text">My Events</span>
+                <span class="text">My Reservation</span>
             </a>
         </li>
-        
-        
         
     </ul>
     <ul class="side-menu">
@@ -83,75 +75,66 @@
 
     <!-- MAIN -->
     <main>
-        <div class="head-title">
-            <div class="left">
-                <h1>Admin Dashboard</h1>
-                <ul class="breadcrumb">
-                    <li>
-                        <a href="#">Dashboard</a>
-                    </li>
-                    <li><i class='bx bx-chevron-right' ></i></li>
-                    <li>
-                        <a class="active" href="#">Home</a>
-                    </li>
-                </ul>
-            </div>
-            
-        </div>
 
         <ul class="box-info">
             <li>
                 <i class='bx bxs-calendar-check' ></i>
                 <span class="text">
-                    <h3>12</h3>
-                    <p>Categories</p>
+                    <h3>{{ $statistique['events'] }}</h3>
+                    <p>Events</p>
                 </span>
             </li>
             <li>
                 <i class='bx bxs-group' ></i>
                 <span class="text">
-                    <h3>10</h3>
-                    <p>Users</p>
+                    <h3>{{ $statistique['eventsAccepted'] }}</h3>
+                    <p>Events Accepted</p>
                 </span>
             </li>
             <li>
                 <i class='bx bxs-dollar-circle' ></i>
                 <span class="text">
-                    <h3>03</h3>
-                    <p>Events</p>
+                    <h3>{{ $statistique['eventsNoneAccepted'] }}</h3>
+                    <p>Events None Accepted</p>
+                </span>
+            </li>
+            <li>
+                <i class='bx bxs-dollar-circle' ></i>
+                <span class="text">
+                    <h3>{{ $statistique['tickets'] }}</h3>
+                    <p>Resrvation</p>
                 </span>
             </li>
         </ul>
 
-
         <div class="table-data">
             <div class="todo">
                 <div class="head">
-                    <h3>Roles Gestion</h3>
-					<a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#addCategoryModal">New User</a>
+                    <h3>Gestion Event</h3>
+					{{-- <a h ref="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#addCategoryModal">New User</a> --}}
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th style="padding-left: 110px">Name</th>
-                            <th style="padding-left: 110px">email</th>
-                            <th style="padding-left: 110px">Role</th>
+                            <th style="padding-left: 110px">Event Name</th>
+                            <th style="padding-left: 110px">User Name</th>
                             <th style="padding-left: 110px">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                       @foreach($users as $user)
+                       @foreach($reservations as $reservation)
                         <tr>
-                            <td>{{ $user->id }}</td>
-                            <td style="padding-left: 110px">{{ $user->name }}</td>
-                            <td style="padding-left: 110px">{{ $user->email }}</td>
-                            <td style="padding-left: 110px">{{ $user->role }}</td>
+                            <td>{{ $reservation->id }}</td>
+                            <td style="padding-left: 110px">{{ $reservation->event->title }}</td>
+                            <td style="padding-left: 110px">{{ $reservation->user->name }}</td>
                             <td style="padding-left: 110px">
-                                <!-- Action buttons -->
-                                    <button class="btn btn-primary btn-sm edit-user" data-toggle="modal" data-target="#editUserModal" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-role="{{ $user->role }}">Edit</button>
-                                    <a class="btn btn-danger btn-sm delete-user" data-user-id="{{ $user->id }}">Delete</a>
-                    
+                                @if($reservation->status == '0')
+                                <a href="/AcceptEvent/accept/{{  $reservation->id }}" class="btn btn-primary btn-sm">Accept</a>
+                                <a href="/AcceptEvent/refuse/{{  $reservation->id }}" class="btn btn-danger btn-sm">Delete</a>
+                                @else
+                                <span class="text-success">Event already accepted</span>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

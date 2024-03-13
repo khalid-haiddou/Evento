@@ -41,5 +41,12 @@ Route::get('/dashboard/users', [AuthController::class, 'index'])->name('dashboar
 Route::post('/dashboard/users/update', [AuthController::class, 'updateUserRole'])->name('dashboard.users.update');
 Route::get('/event/{eventId}', 'App\Http\Controllers\EventController@showDetails')->name('event.details');
 Route::post('/event/{eventId}/reserve', 'App\Http\Controllers\EventController@reserve')->name('event.reserve');
+Route::post('/search',[EventController::class, 'search'])->name('search');
+Route::post('/categoryFilter',[EventController::class, 'categoryFilter'])->name('categoryFilter');
 
+
+Route::get('/MyReservation', 'App\Http\Controllers\EventController@MyReservation')->name('event.MyReservation');
+Route::get('/AcceptEvent/{action}/{id}', 'App\Http\Controllers\EventController@AcceptEvent')->name('event.AcceptEvent');
+Route::get('/acceptOragnEvent/{action}/{id}', 'App\Http\Controllers\EventController@acceptOragnEvent')->name('event.acceptOragnEvent');
+Route::get('/acceptEvents', 'App\Http\Controllers\EventController@acceptNewEvents')->name('event.acceptNewEvents');
 

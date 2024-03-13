@@ -26,7 +26,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/MyReservation">
                 <i class='bx bxs-shopping-bag-alt' ></i>
                 <span class="text">My Reservation</span>
             </a>
@@ -109,7 +109,7 @@
 
                                 <div class="row justify-content-center">
                                     @foreach($events as $event)
-                                    <!-- Card -->
+                                    
                                     <div class="col-md-8 col-lg-6 col-xl-4 p-2">
                                         <div class="card" style="border-radius: 15px;">
                                             <div class="bg-image hover-overlay ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
@@ -145,13 +145,87 @@
                                                 <a class="btn btn-warning btn-sm">{{ $event->isPublish }}</a>
                                                 <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
                                                     <!-- Action buttons -->
-                                                    <button type="button" class="btn btn-primary btn-sm mt-5 editEventBtn"  data-id="{{ $event->id }}">Update</button>
+                                                    <button type="button" class="btn btn-primary btn-sm mt-5 editEventBtn"  data-toggle="modal" data-target="#updateModal{{ $event->id }}">Update</button>
                                                     <a href="#" class="btn btn-danger btn-sm mt-5">Delete</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Card -->
+
+                                    <div class="modal fade" id="updateModal{{ $event->id }}" tabindex="-1" aria-labelledby="updateEventModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="updateEventModalLabel">Update Event</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form id="updateEventForm" action="{{ route('update.event') }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <!-- Hidden Field for Event ID -->
+                                                        <input type="hidden" value="{{ $event->id }}" id="update_event_id" name="event_id">
+                                                        <!-- Title -->
+                                                        <div class="form-group">
+                                                            <label for="update_title">Title</label>
+                                                            <input type="text" value="{{ $event->title }}" class="form-control" id="update_title" name="title" required>
+                                                        </div>
+                                                        <!-- Description -->
+                                                        <div class="form-group">
+                                                            <label for="update_description">Description</label>
+                                                            <textarea class="form-control" id="update_description" name="description" required>{{$event->description}}</textarea>
+                                                        </div>
+                                                        <!-- Date -->
+                                                        <div class="form-group">
+                                                            <label for="update_date">Date</label>
+                                                            <input type="datetime-local" value="{{$event->date}}" class="form-control" id="update_date" name="date" required>
+                                                        </div>
+                                                        <!-- Place -->
+                                                        <div class="form-group">
+                                                            <label for="update_place">Place</label>
+                                                            <input type="text" value="{{$event->address}}" class="form-control" id="update_place" name="address" required>
+                                                        </div>
+                                                        <!-- Price -->
+                                                        <div class="form-group">
+                                                            <label for="update_price">Price</label>
+                                                            <input type="number" value="{{$event->price}}" class="form-control" id="update_price" name="price" required>
+                                                        </div>
+                                                        <!-- Number of Places -->
+                                                        <div class="form-group">
+                                                            <label for="update_nbr_place">Number of Places</label>
+                                                            <input type="number" value="{{$event->placeNumber}}" class="form-control" id="update_nbr_place" name="placeNumber" required>
+                                                        </div>
+                                                        <!-- Image -->
+                                                        <div class="form-group">
+                                                            <label for="update_image">Image</label>
+                                                            <input type="file" class="form-control-file" id="update_image" name="image">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="update_category">Category</label>
+                                                            <select class="form-control" id="update_category" name="category_id" required>
+                                                                @foreach($categories as $category)
+                                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <!-- Status -->
+                                                        <div class="form-group">
+                                                            <label for="update_acceptType">Accept Type</label>
+                                                            <select class="form-control" id="update_acceptType" name="acceptType" required>
+                                                                <option value="auto" @if($event->acceptType=='auto') selected @endif  >Automatique</option>
+                                                                <option value="man"  @if($event->acceptType=='man') selected @endif>Manuell</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Update Event</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @endforeach
                                 </div>
                                 
@@ -248,80 +322,7 @@
 <!-- Add Event Modal -->
 
 <!-- Update Event Modal -->
-<div class="modal fade" id="updateEventModal" tabindex="-1" aria-labelledby="updateEventModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateEventModalLabel">Update Event</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="updateEventForm" action="{{ route('update.event') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-body">
-                    <!-- Hidden Field for Event ID -->
-                    <input type="hidden" id="update_event_id" name="event_id">
-                    <!-- Title -->
-                    <div class="form-group">
-                        <label for="update_title">Title</label>
-                        <input type="text" class="form-control" id="update_title" name="title" required>
-                    </div>
-                    <!-- Description -->
-                    <div class="form-group">
-                        <label for="update_description">Description</label>
-                        <textarea class="form-control" id="update_description" name="description" required></textarea>
-                    </div>
-                    <!-- Date -->
-                    <div class="form-group">
-                        <label for="update_date">Date</label>
-                        <input type="datetime-local" class="form-control" id="update_date" name="date" required>
-                    </div>
-                    <!-- Place -->
-                    <div class="form-group">
-                        <label for="update_place">Place</label>
-                        <input type="text" class="form-control" id="update_place" name="address" required>
-                    </div>
-                    <!-- Price -->
-                    <div class="form-group">
-                        <label for="update_price">Price</label>
-                        <input type="number" class="form-control" id="update_price" name="price" required>
-                    </div>
-                    <!-- Number of Places -->
-                    <div class="form-group">
-                        <label for="update_nbr_place">Number of Places</label>
-                        <input type="number" class="form-control" id="update_nbr_place" name="placeNumber" required>
-                    </div>
-                    <!-- Image -->
-                    <div class="form-group">
-                        <label for="update_image">Image</label>
-                        <input type="file" class="form-control-file" id="update_image" name="image">
-                    </div>
-                    <div class="form-group">
-                        <label for="update_category">Category</label>
-                        <select class="form-control" id="update_category" name="category_id" required>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <!-- Status -->
-                    <div class="form-group">
-                        <label for="update_acceptType">Accept Type</label>
-                        <select class="form-control" id="update_acceptType" name="acceptType" required>
-                            <option value="auto">Auto</option>
-                            <option value="manual">Manual</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update Event</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
 
 <!-- update Event Modal -->
 

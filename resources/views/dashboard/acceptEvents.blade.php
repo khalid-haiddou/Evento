@@ -83,74 +83,35 @@
 
     <!-- MAIN -->
     <main>
-        <div class="head-title">
-            <div class="left">
-                <h1>Admin Dashboard</h1>
-                <ul class="breadcrumb">
-                    <li>
-                        <a href="#">Dashboard</a>
-                    </li>
-                    <li><i class='bx bx-chevron-right' ></i></li>
-                    <li>
-                        <a class="active" href="#">Home</a>
-                    </li>
-                </ul>
-            </div>
-            <a href="#" class="btn-download">
-                <i class='bx bxs-cloud-download' ></i>
-                <span class="text">Download Ticket</span>
-            </a>
-        </div>
-
-        <ul class="box-info">
-            <li>
-                <i class='bx bxs-calendar-check' ></i>
-                <span class="text">
-                    <h3>{{ count($categories) }}</h3>
-                    <p>CATEGORIES</p>
-                </span>
-            </li>
-            <li>
-                <i class='bx bxs-group' ></i>
-                <span class="text">
-                    <h3>{{ count($users) }}</h3>
-                    <p>Users</p>
-                </span>
-            </li>
-            <li>
-                <i class='bx bxs-dollar-circle' ></i>
-                <span class="text">
-                    <h3>{{  count($events) }}</h3>
-                    <p>Events</p>
-                </span>
-            </li>
-            
-        </ul>
-
 
         <div class="table-data">
             <div class="todo">
                 <div class="head">
-                    <h3>CATEGORIES</h3>
-					<a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#addCategoryModal">New Category</a>
+                    <h3>Accept Event</h3>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th style="padding-left: 130px">Name</th>
+                            <th style="padding-left: 130px">Event Name</th>
+                            <th style="padding-left: 130px">User Name</th>
                             <th style="padding-left: 150px">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($categories as $category)
+                        @foreach($events as $event)
                         <tr>
-                            <td>{{ $category->id }}</td>
-                            <td style="padding-left: 130px">{{ $category->name }}</td>
+                            <td>{{ $event->id }}</td>
+                            <td style="padding-left: 130px">{{ $event->title }}</td>
+                            <td style="padding-left: 130px">{{ $event->user->name }}</td>
                             <td style="padding-left: 130px">
                                 <!-- Action buttons -->
-                                <a href="#" class="btn btn-primary btn-sm edit-category" data-toggle="modal" data-target="#editCategoryModal" data-category-id="{{ $category->id }}" data-category-name="{{ $category->name }}">Edit</a>
-                                <a href="#" class="btn btn-danger btn-sm delete-category" data-category-id="{{ $category->id }}">Delete</a>
+                                @if($event->isPublish == 'nonpublish')
+                                <a href="/acceptOragnEvent/success/{{ $event->id }}" class="btn btn-primary btn-sm ">Accept</a>
+                                <a href="/acceptOragnEvent/error/{{ $event->id }}" class="btn btn-danger btn-sm ">Delete</a>
+                                @else
+                                <span class="text-success">Event Already Accepted</span>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

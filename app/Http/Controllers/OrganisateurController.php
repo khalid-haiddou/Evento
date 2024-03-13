@@ -11,7 +11,6 @@ class OrganisateurController extends Controller
 {
     public function storeEvent(Request $request)
     {   
-        // Validate the request
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -23,10 +22,9 @@ class OrganisateurController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'acceptType' => 'required|in:auto,manual',
         ]);
-        // Retrieve the authenticated user's ID
         $userId = Auth::id();
         
-        // Save the event
+        
         $event = new Event();
         $event->title = $request->title;
         $event->description = $request->description;
@@ -41,7 +39,6 @@ class OrganisateurController extends Controller
         $event->isPublish = "nonpublish";
         $event->save();
 
-        // Redirect back with a success message
         return redirect()->back()->with('success', 'Event created successfully.');
     }
     public function displayEvents()
@@ -51,7 +48,7 @@ class OrganisateurController extends Controller
         $events = Event::all();
         $categories = Category::all();
 
-        // Pass events data to the view
+        
         return view('dashboard.organisateur', compact('events', 'categories'));
     }
 
