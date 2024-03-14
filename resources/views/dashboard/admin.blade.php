@@ -149,8 +149,8 @@
                             <td style="padding-left: 130px">{{ $category->name }}</td>
                             <td style="padding-left: 130px">
                                 <!-- Action buttons -->
-                                <a href="#" class="btn btn-primary btn-sm edit-category" data-toggle="modal" data-target="#editCategoryModal" data-category-id="{{ $category->id }}" data-category-name="{{ $category->name }}">Edit</a>
-                                <a href="#" class="btn btn-danger btn-sm delete-category" data-category-id="{{ $category->id }}">Delete</a>
+                                <a  class="btn btn-primary btn-sm edit-category" data-toggle="modal" data-target="#editCategoryModal" data-category-id="{{ $category->id }}" data-category-name="{{ $category->name }}">Edit</a>
+                                <a  class="btn btn-danger btn-sm delete-category" data-category-id="{{ $category->id }}">Delete</a>
                             </td>
                         </tr>
                         @endforeach

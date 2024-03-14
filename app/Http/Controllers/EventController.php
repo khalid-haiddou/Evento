@@ -30,10 +30,9 @@ class EventController extends Controller
             $reservation->user_id = auth()->user()->id;
             $reservation->date = Carbon::now(); 
             $reservation->save();
-
-            
-            $event->placeNumber--;
             $event->save();
+            
+            
 
             
             return redirect()->back()->with('success', 'Reservation successful!');
@@ -44,10 +43,10 @@ class EventController extends Controller
     public function search(Request $request)
     {
 
-
         $search = $request->search;
-        $events = Event::where('title', 'like', '%' . $search . '%')->paginate(5);
-        return view('home', ['events' => $events]);
+        $events = Event::where('title', 'like', '%' . $search . '%');
+        $categories = Category::all();
+        return view('home', compact('events','categories'));
     }
 
     public function categoryFilter(Request $request)
@@ -104,3 +103,5 @@ class EventController extends Controller
         }
     }
 }
+
+
